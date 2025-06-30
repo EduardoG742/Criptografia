@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cifrado - Enviar Mensaje</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; }
+        h1 { color: #333; }
+        form { background: white; padding: 1.5em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 1em; }
+        input[type="text"], textarea {
+            width: 100%; padding: 0.5em; margin-top: 0.3em;
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        input[type="submit"] {
+            margin-top: 1.5em; padding: 0.6em 2em; background: #007bff;
+            border: none; color: white; border-radius: 4px;
+            cursor: pointer;
+        }
+        .resultado { background: #e9ecef; padding: 1em; margin-top: 1em; border-radius: 4px; }
+        button.copiar {
+            margin-top: 1em;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 0.4em 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .monospace {
+            font-family: monospace;
+            word-break: break-all;
+            background: #f1f1f1;
+            padding: 0.5em;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cifrar un mensaje</h1>
+    <form method="POST">
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required>{{ mensaje }}</textarea>
+
+        <label for="clave">Clave:</label>
+        <input type="text" id="clave" name="clave" value="{{ clave }}" required>
+
+        <input type="submit" value="Cifrar">
+    </form>
+
+    {% if cifrado %}
+    <div class="resultado">
+        <h3>Texto cifrado (incluye marca de tiempo):</h3>
+        <p><strong id="texto-cifrado">{{ cifrado }}</strong></p>
+        <button class="copiar" onclick="copiarTexto()">Copiar cifrado</button>
+        <p><a href="/descifrar">Ir a descifrado</a></p>
+    </div>
+    {% endif %}
+
+    {% if hash_clave %}
+    <div class="resultado">
+        <h3>Clave derivada (SHA-256):</h3>
+        <p class="monospace">{{ hash_clave }}</p>
+    </div>
+    {% endif %}
+
+    <script>
+    function copiarTexto() {
+        const texto = document.getElementById("texto-cifrado").innerText;
+        navigator.clipboard.writeText(texto).then(function() {
+            alert("Texto cifrado copiado al portapapeles");
+        }, function(err) {
+            alert("Error al copiar: " + err);
+        });
+    }
+    </script>
+</body>
+</html>

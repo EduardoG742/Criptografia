@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Descifrado</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; }
+        h1 { color: #333; }
+        form { background: white; padding: 1.5em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 1em; }
+        input[type="text"], textarea {
+            width: 100%; padding: 0.5em; margin-top: 0.3em;
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        input[type="submit"] {
+            margin-top: 1.5em; padding: 0.6em 2em; background: #28a745;
+            border: none; color: white; border-radius: 4px;
+            cursor: pointer;
+        }
+        .resultado { background: #e9ecef; padding: 1em; margin-top: 1em; border-radius: 4px; }
+        .monospace {
+            font-family: monospace;
+            word-break: break-all;
+            background: #f1f1f1;
+            padding: 0.5em;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Descifrar un mensaje</h1>
+    <form method="POST">
+        <label for="cifrado">Texto cifrado (Base64 + timestamp):</label>
+        <textarea id="cifrado" name="cifrado" rows="4" required>{{ cifrado }}</textarea>
+        <p style="font-size: 0.9em; color: #666;">Este texto debe contener el mensaje cifrado junto con la marca de tiempo utilizada.</p>
+
+        <label for="clave">Clave:</label>
+        <input type="text" id="clave" name="clave" value="{{ clave }}" required>
+
+        <input type="submit" value="Descifrar">
+    </form>
+
+    {% if mensaje %}
+    <div class="resultado">
+        <h3>Mensaje descifrado:</h3>
+        <p><strong>{{ mensaje }}</strong></p>
+        <p><a href="/">Volver al cifrado</a></p>
+    </div>
+    {% endif %}
+
+    {% if hash_clave %}
+    <div class="resultado">
+        <h3>Clave derivada (SHA-256):</h3>
+        <p class="monospace">{{ hash_clave }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
