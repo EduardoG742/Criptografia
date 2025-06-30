@@ -38,16 +38,12 @@ cd Criptografia
 2. Instala las dependencias:
 
 ```bash
-Copiar
-Editar
 pip install -r requirements.txt
 ```
 
 3. Ejecuta la aplicación:
 
 ```bash
-Copiar
-Editar
 python app.py
 ```
 
