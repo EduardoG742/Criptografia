@@ -84,6 +84,8 @@ Base64(timestamp + mensaje_cifrado)
 
 3. Se aplica el descifrado inverso para recuperar el mensaje original.
 
+---
+
 ## ⚠️ Consejo
 
 Abrir el descifrado en una pestaña nueva para poder comparar que la clave derivada es la misma.
